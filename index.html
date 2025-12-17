@@ -124,7 +124,23 @@
 
     <button class="fs-btn" onclick="toggleFullScreen()">⛶ 全屏模式</button>
 
-    <script type="module">
+    <    <script type="module">
+        // 1. 修改引用源为 jsDelivr (国内访问更快)
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js';
+        import { Hands } from 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js';
+        import { Camera } from 'https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js';
+
+        // ... (中间的全局变量和 initScene 代码保持不变，不需要动) ...
+
+        // ... (找到底部初始化 Hands 的地方，替换成下面这样) ...
+        
+        // 初始化 MediaPipe (使用加速源)
+        const hands = new Hands({locateFile: (file) => {
+            return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+        }});
+        
+        // ... (剩下的代码保持不变) ...
+>
         import * as THREE from 'https://unpkg.com/three@0.128.0/build/three.module.js';
         import { Hands } from 'https://unpkg.com/@mediapipe/hands/hands.js';
         import { Camera } from 'https://unpkg.com/@mediapipe/camera_utils/camera_utils.js';
